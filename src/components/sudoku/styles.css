@@ -524,7 +524,7 @@ td.d0 {
 @keyframes ripple {
     0% {
         transform: scale(1);
-        opacity: 0.5;
+        opacity: 0.75;
     }
     50% {
         transform: scale(1.5);
@@ -532,17 +532,17 @@ td.d0 {
     }
     100% {
         transform: scale(1);
-        opacity: 0.5;
+        opacity: 0.75;
     }
 }
 
 .ripple span {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    left: 0;
-    bottom: 0;
-    background: darkblue;
+    width: 36px;
+    height: 36px;
+    left: 2px;
+    bottom: 4px;
+    background: green;
     border-radius: 50%;
     animation: ripple 3s linear infinite;
     z-index: -2;

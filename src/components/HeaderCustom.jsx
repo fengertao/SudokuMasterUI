@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import * as AuthService from '@/axios/AuthService';
-import screenfull from 'screenfull';
+// import screenfull from 'screenfull';
 import avater from '@/style/imgs/avatar_man.svg';
 import SiderCustom from './SiderCustom';
-import { Menu, Icon, Layout, Badge, Popover } from 'antd';
+import { Menu, Icon, Layout, Popover } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { PwaInstaller } from './widget';
+// import { PwaInstaller } from './widget';
 import { ResponsiveContext } from '@/context/ResponsiveContext';
 
 const { Header } = Layout;
@@ -18,11 +18,11 @@ const HeaderCustom = props => {
     const [visible, setVisible] = useState(false);
     const { state: responsiveState } = useContext(ResponsiveContext);
 
-    const screenFull = () => {
-        if (screenfull.enabled) {
-            screenfull.request();
-        }
-    };
+    // const screenFull = () => {
+    //     if (screenfull.enabled) {
+    //         screenfull.request();
+    //     }
+    // };
     const menuClick = e => {
         e.key === 'logout' && logout();
     };
@@ -61,7 +61,7 @@ const HeaderCustom = props => {
                 style={{ lineHeight: '64px', float: 'right' }}
                 onClick={menuClick}
             >
-                <Menu.Item key="pwa">
+                {/* <Menu.Item key="pwa">
                     <PwaInstaller />
                 </Menu.Item>
                 <Menu.Item key="full" onClick={screenFull}>
@@ -71,7 +71,7 @@ const HeaderCustom = props => {
                     <Badge count={25} overflowCount={10} style={{ marginLeft: 10 }}>
                         <Icon type="notification" />
                     </Badge>
-                </Menu.Item>
+                </Menu.Item> */}
                 <SubMenu
                     title={
                         <span className="avatar">
@@ -82,14 +82,9 @@ const HeaderCustom = props => {
                 >
                     <MenuItemGroup title="用户中心">
                         <Menu.Item key="setting:1">你好 - {authState.username}</Menu.Item>
-                        <Menu.Item key="setting:2">个人信息</Menu.Item>
                         <Menu.Item key="logout">
                             <span onClick={logout}>退出登录</span>
                         </Menu.Item>
-                    </MenuItemGroup>
-                    <MenuItemGroup title="设置中心">
-                        <Menu.Item key="setting:3">个人设置</Menu.Item>
-                        <Menu.Item key="setting:4">系统设置</Menu.Item>
                     </MenuItemGroup>
                 </SubMenu>
             </Menu>

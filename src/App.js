@@ -49,21 +49,21 @@ const App = props => {
                         <p>
                             GitHub地址：{' '}
                             <a
-                                href="https://github.com/fengertao"
+                                href="Https://github.com/fengertao"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                https://github.com/fengertao
+                                Https://github.com/fengertao
                             </a>
                         </p>
                         <p>
                             博客地址：{' '}
                             <a
-                                href="http://blog.warrenfeng.com/"
+                                href="Http://blog.warrenfeng.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                http://blog.warrenfeng.com/
+                                Http://blog.warrenfeng.com/
                             </a>
                         </p>
                     </div>

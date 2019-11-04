@@ -39,7 +39,7 @@ const CreateGridForm = Form.create()(props => {
     return (
         <Modal
             visible={visible}
-            title="创建新局"
+            title="创建新盘"
             okText="创建"
             cancelText="取消"
             onCancel={onCancel}
@@ -59,7 +59,7 @@ const CreateGridForm = Form.create()(props => {
                             },
                             {
                                 required: true,
-                                message: '请输入新局',
+                                message: '请输入新盘',
                             },
                         ],
                     })(
@@ -172,14 +172,14 @@ const PlayGrid = () => {
                         </table>
                     </div>
                     <p />
-                    <Button onClick={showInputGridModal}>新局</Button>
+                    <Button onClick={showInputGridModal}>新盘</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>选局</Button>
+                    <Button onClick={() => message.warn('Under Construction')}>选盘</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => message.warn('Under Construction')}>单步></Button>
                     &nbsp;&nbsp;
                     <Button type="primary" onClick={e => handleClickResolve(e)}>
-                        解局>>
+                        解盘>>
                     </Button>
                     <CreateGridForm
                         ref={setInputForm}
