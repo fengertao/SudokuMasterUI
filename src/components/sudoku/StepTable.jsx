@@ -19,8 +19,15 @@ const StepTable = props => {
         setSortedInfo(sorter);
     };
 
-    const content = (position, cell, refCells) => {
-        return <Position position={position} cell={cell} refCells={refCells} />;
+    const positionContent = (position, cell, refCells, preChangeCandidates) => {
+        return (
+            <Position
+                position={position}
+                cell={cell}
+                refCells={refCells}
+                preChangeCandidates={preChangeCandidates}
+            />
+        );
     };
 
     const columns = [
@@ -52,7 +59,12 @@ const StepTable = props => {
         {
             title: '详细',
             dataIndex: 'level',
-            filters: [{ text: '0', value: 0 }, { text: '1', value: 1 }, { text: '2', value: 2 }],
+            filters: [
+                { text: '0', value: 0 },
+                { text: '1', value: 1 },
+                { text: '2', value: 2 },
+                { text: '3', value: 3 },
+            ],
             width: 70,
             filteredValue: filteredInfo.level || null,
             onFilter: (value, record) => record.level === value,
@@ -65,7 +77,12 @@ const StepTable = props => {
                 <span>
                     <Popover
                         placement="left"
-                        content={content(position, record.cell, record.refCells)}
+                        content={positionContent(
+                            position,
+                            record.cell,
+                            record.refCells,
+                            record.preChangeCandidates
+                        )}
                         title={`第${record.index}步 ${record.cell} ${record.message}`}
                         trigger="hover"
                     >

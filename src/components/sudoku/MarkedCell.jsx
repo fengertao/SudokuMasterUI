@@ -3,7 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import './styles.css';
 
 export default class MarkedCell extends Component {
     constructor(props) {
@@ -12,20 +11,21 @@ export default class MarkedCell extends Component {
     }
 
     render() {
-        let tdClassName, showValue;
+        let tdClassName, showValue, preChangeShowValue;
         const value = this.props.value;
         const isKeyCell = this.props.isKeyCell;
         const isRefCell = this.props.isRefCell;
+        const preChangeCandidates = this.props.preChangeCandidates;
 
         if (value.length === 1) {
-            tdClassName = `word${value}`;
+            tdClassName = `cell word${value}`;
             showValue = value;
         } else if (value === '123456789') {
             //Todo
-            tdClassName = 'word1';
+            tdClassName = 'cell word1';
             showValue = '\xA0';
         } else {
-            tdClassName = 'd0';
+            tdClassName = 'cell candidates';
             showValue = '';
             showValue += value.includes('1') ? '1' : '\xA0';
             showValue += value.includes('2') ? '2' : '\xA0';
@@ -43,12 +43,27 @@ export default class MarkedCell extends Component {
         if (isRefCell) {
             tdClassName += ' slowlyBlink';
         }
+
         if (isKeyCell) {
+            preChangeShowValue = '';
+            if (preChangeCandidates) {
+                preChangeShowValue += preChangeCandidates.includes('1') ? '1' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('2') ? '2' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('3') ? '3' : '\xA0';
+                preChangeShowValue += '\n';
+                preChangeShowValue += preChangeCandidates.includes('4') ? '4' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('5') ? '5' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('6') ? '6' : '\xA0';
+                preChangeShowValue += '\n';
+                preChangeShowValue += preChangeCandidates.includes('7') ? '7' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('8') ? '8' : '\xA0';
+                preChangeShowValue += preChangeCandidates.includes('9') ? '9' : '\xA0';
+            }
             return (
-                <td className={tdClassName + ' ripple'}>
-                    {showValue}
+                <td className={'switch'}>
                     <span />
-                    <span />
+                    <span className={'cell candidates'}>{preChangeShowValue}</span>
+                    <span className={tdClassName}>{showValue}</span>
                 </td>
             );
         } else {

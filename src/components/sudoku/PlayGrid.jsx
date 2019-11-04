@@ -8,7 +8,7 @@ import { updateResult } from '@/context/SudokuAction';
 import GridService from '../../axios/GridService';
 import Cell from './Cell';
 import { Button, Form, message, Modal, Input, Spin } from 'antd';
-import './styles.css';
+import './gridStyles.css';
 import bg from './bg.png';
 
 const DEMO_GRID =

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import MarkedCell from './MarkedCell';
-import './styles.css';
+import './gridStyles.css';
 import bg from './bg.png';
 
 const Position = props => {
@@ -13,6 +13,7 @@ const Position = props => {
     const cells = props.position.split('|');
     const refCells = props.refCells;
     const keyCell = props.cell;
+    const preChangeCandidates = props.preChangeCandidates;
 
     return (
         <div style={{ textAlign: 'center', margin: '0px auto', height: 444 }}>
@@ -26,16 +27,19 @@ const Position = props => {
                                 return (
                                     <tr key={'tr' + iRow} className="grid">
                                         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(iCol => {
+                                            let isKeyCell = `(${iRow + 1},${iCol + 1})` === keyCell;
+                                            let isRefCell = refCells.includes(
+                                                `(${iRow + 1},${iCol + 1})`
+                                            );
                                             return (
                                                 <MarkedCell
                                                     key={'cell' + iRow * 9 + iCol}
                                                     value={cells[iRow * 9 + iCol]}
-                                                    isKeyCell={
-                                                        `(${iRow + 1},${iCol + 1})` === keyCell
+                                                    isKeyCell={isKeyCell}
+                                                    isRefCell={isRefCell}
+                                                    preChangeCandidates={
+                                                        isKeyCell ? preChangeCandidates : null
                                                     }
-                                                    isRefCell={refCells.includes(
-                                                        `(${iRow + 1},${iCol + 1})`
-                                                    )}
                                                 />
                                             );
                                         })}

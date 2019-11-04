@@ -13,12 +13,12 @@ export default class Cell extends Component {
     render() {
         let tdClassName, inputClassName, showValue;
         if (this.props.value > 0) {
-            tdClassName = 'word' + this.props.value;
-            inputClassName = 'disabledInput' + this.props.value;
+            tdClassName = 'cell word' + this.props.value;
+            inputClassName = 'word' + this.props.value;
             showValue = this.props.value;
         } else {
             //Todo
-            tdClassName = 'word1';
+            tdClassName = 'cell';
             inputClassName = 'writeInput';
             showValue = '';
         }
