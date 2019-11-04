@@ -1,0 +1,552 @@
+/**
+ * Copyright (c) 2018-2019,  Charlie Feng. All Rights Reserved.
+ */
+
+.gridFg {
+    position: relative;
+    z-index: 1;
+    left: 0px;
+    top: -371px;
+    height: 380px;
+}
+
+.gridBg {
+    position: relative;
+    z-index: 0;
+    left: 0px;
+    top: 10px;
+    width: 380px;
+    height: 380px;
+}
+
+.gridTable {
+    border-left: #eeeeee 3px solid;
+    border-bottom: #eeeeee 3px solid;
+    border-right: #eeeeee 3px solid;
+    border-top: #eeeeee 3px solid;
+    table-layout: fixed;
+    vertical-align: middle;
+    width: 384px;
+    height: 384px;
+    padding: 0px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    text-align: center;
+}
+tr.grid {
+    height: 40px;
+}
+td.normal {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 42px;
+    line-height: 40px;
+    height: 42px;
+    text-align: center;
+    color: #eeeeee;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word1 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: red;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word2 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: orange;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word3 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: yellow;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word4 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: lightgreen;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word5 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: cyan;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word6 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: lightblue;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word7 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: gold;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word8 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: pink;
+    font-size: 21pt;
+    padding: 0px;
+}
+td.word9 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 21pt;
+    padding: 0px;
+}
+.readInput {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+}
+.writeInput {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    background-color: transparent;
+    color: black;
+}
+.disabledInput1 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: red;
+    background-color: transparent;
+}
+.disabledInput2 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: orange;
+    background-color: transparent;
+}
+.disabledInput3 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: yellow;
+    background-color: transparent;
+}
+.disabledInput4 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: lightgreen;
+    background-color: transparent;
+}
+.disabledInput5 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: cyan;
+    background-color: transparent;
+}
+.disabledInput6 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: lightblue;
+    background-color: transparent;
+}
+.disabledInput7 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: gold;
+    background-color: transparent;
+}
+.disabledInput8 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: pink;
+    background-color: transparent;
+}
+.disabledInput9 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-size: 21pt;
+    height: 40px;
+    text-align: center;
+    color: white;
+    background-color: transparent;
+}
+
+.w1 {
+    border-right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    margin: 0;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: red;
+    font-size: 21pt;
+}
+.w2 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: orange;
+    font-size: 21pt;
+}
+.w3 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: yellow;
+    font-size: 21pt;
+}
+.w4 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: lightgreen;
+    font-size: 21pt;
+}
+.w5 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: cyan;
+    font-size: 21pt;
+}
+.w6 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: lightblue;
+    font-size: 21pt;
+}
+.w7 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: gold;
+    font-size: 21pt;
+}
+.w8 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: pink;
+    font-size: 21pt;
+}
+.w9 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: white;
+    font-size: 21pt;
+}
+
+.v0 {
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+    margin: 0px;
+    width: 40px;
+    line-height: 40px;
+    font-family: lucida handwriting, comic sans ms, cursive;
+    height: 40px;
+    text-align: center;
+    background: alph;
+    background-color: transparent;
+    color: white;
+    font-size: 10pt;
+}
+td.d0 {
+    border-left: 0 solid;
+    border-bottom: 0 solid;
+    border-right: 0 solid;
+    border-top: 0 solid;
+    width: 40px;
+    line-height: 13px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 11pt;
+    font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
+    padding: 0px;
+}
+.slowlyBlink {
+    animation: slowlyBlink 3s infinite;
+}
+@keyframes slowlyBlink {
+    from {
+        opacity: 1;
+    }
+    25% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+    75% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.ripple {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0; /*圆形放大的同时，透明度逐渐减小为0*/
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+.ripple span {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 0;
+    bottom: 0;
+    background: darkblue;
+    border-radius: 50%;
+    animation: ripple 3s linear infinite;
+    z-index: -2;
+}
+.ripple span:nth-child(2) {
+    animation-delay: 1.5s; /*第二个span动画延迟1.5秒*/
+}
