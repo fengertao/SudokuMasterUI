@@ -4,14 +4,73 @@
 
 import React, { useContext, useState } from 'react';
 import { SudokuContext } from '@/context/SudokuContext';
-import { Table, Popover } from 'antd';
+import { Table, Popover, Input, Button, Icon } from 'antd';
 import Position from './Position';
 
 const StepTable = props => {
     let { state: sudokuState } = useContext(SudokuContext);
     let [loading] = useState(false);
     let [filteredInfo, setFilteredInfo] = useState({});
-    let [setSortedInfo] = useState({});
+    let [, setSearchText] = useState('');
+    let [, setSortedInfo] = useState({});
+
+    let searchInput;
+
+    const getColumnSearchProps = dataIndex => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8 }}>
+                <Input
+                    ref={node => {
+                        searchInput = node;
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm)}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
+                />
+                <Button
+                    type="primary"
+                    onClick={() => handleSearch(selectedKeys, confirm)}
+                    icon="search"
+                    size="small"
+                    style={{ width: 90, marginRight: 8 }}
+                >
+                    Search
+                </Button>
+                <Button
+                    onClick={() => handleReset(clearFilters)}
+                    size="small"
+                    style={{ width: 90 }}
+                >
+                    Reset
+                </Button>
+            </div>
+        ),
+        filterIcon: filtered => (
+            <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+        ),
+        onFilter: (value, record) =>
+            record[dataIndex]
+                .toString()
+                .toLowerCase()
+                .includes(value.toLowerCase()),
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => searchInput.select());
+            }
+        },
+    });
+
+    const handleSearch = (selectedKeys, confirm) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+    };
+
+    const handleReset = clearFilters => {
+        clearFilters();
+        setSearchText('');
+    };
 
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -40,21 +99,25 @@ const StepTable = props => {
             title: '格',
             dataIndex: 'cell',
             width: 50,
+            ...getColumnSearchProps('cell'),
         },
         {
             title: '消息',
             dataIndex: 'message',
             width: '50%',
+            ...getColumnSearchProps('message'),
         },
         {
             title: '技巧',
             dataIndex: 'techniques',
             width: '25%',
+            ...getColumnSearchProps('techniques'),
         },
         {
             title: '参考单元格',
             dataIndex: 'refCells',
             width: '25%',
+            ...getColumnSearchProps('refCells'),
         },
         {
             title: '详细',

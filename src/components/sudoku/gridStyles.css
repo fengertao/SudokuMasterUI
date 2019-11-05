@@ -6,7 +6,7 @@
     position: relative;
     z-index: 1;
     left: 0px;
-    top: -371px;
+    top: -373px;
     height: 380px;
 }
 
@@ -49,6 +49,10 @@ tr.grid {
     color: #eeeeee;
     font-size: 21pt;
     padding: 0px;
+    position: relative;
+}
+.word0 {
+    color: transparent;
 }
 .word1 {
     color: red;
@@ -77,10 +81,29 @@ tr.grid {
 .word9 {
     color: white;
 }
+
+.cell .inputspan {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 2;
+}
+.cell .displayspan {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1;
+    font-family: lucida handwriting, comic sans ms, cursive;
+}
+
 .candidates {
     color: white;
-    line-height: 13px;
-    font-size: 11pt;
+    line-height: 12px;
+    font-size: 11pt !important;
     font-family: 'Cascadia Code', Consolas, 'Courier New', monospace;
 }
 
@@ -100,7 +123,6 @@ tr.grid {
 
 .writeInput {
     font-family: lucida handwriting, comic sans ms, cursive;
-    color: black;
 }
 
 /*

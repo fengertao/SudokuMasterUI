@@ -160,7 +160,8 @@ const PlayGrid = () => {
                                             {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(iCol => {
                                                 return (
                                                     <Cell
-                                                        key={'cell' + iRow * 9 + iCol}
+                                                        key={'cell' + (iRow * 9 + iCol)}
+                                                        index={iRow * 9 + iCol}
                                                         value={cell[iRow * 9 + iCol]}
                                                     />
                                                 );
