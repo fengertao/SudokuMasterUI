@@ -26,7 +26,7 @@ class Sudoku extends Component {
                             }}
                         >
                             <div className="gutter-box">
-                                <Card title="盘面" bordered={false}>
+                                <Card title="盘面" bordered={false} style={{ height: 748 }}>
                                     <PlayGrid />
                                 </Card>
                             </div>

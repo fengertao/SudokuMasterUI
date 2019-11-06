@@ -95,18 +95,17 @@ class Dashboard extends React.Component {
                                         <p>用户可以录入新盘并由计算机智能解盘</p>
                                         <p>可以查看解题步骤</p>
                                         <p>可以在解题步骤的复盘链接处查看每一步的盘面</p>
+                                        <p>用户手动解盘</p>
+                                        <p>用户在单元格记笔记</p>
                                     </Timeline.Item>
                                     <Timeline.Item color="red">
                                         <p>数独大师待完成任务：</p>
                                         <p>保存和提取盘面</p>
-                                        <p>用户手动解盘</p>
-                                        <p>用户在单元格记笔记</p>
-                                        <p>盘中存盘和提取</p>
+                                        <p>残局存盘和提取</p>
                                         <p>计时器</p>
                                         <p>游戏历史记录</p>
                                         <p>单步游戏</p>
                                     </Timeline.Item>
-
                                     <Timeline.Item color="#108ee9">
                                         <p>系统待完成任务：</p>
                                         <p>数据库备份和恢复</p>
