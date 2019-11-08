@@ -3,7 +3,7 @@
  */
 
 import React, { useContext, useState } from 'react';
-import { Button, message, Spin } from 'antd';
+import { Button, message, Spin, Modal } from 'antd';
 import { SudokuContext } from '@/context/SudokuContext';
 import { SudokuSolutionContext } from '@/context/SudokuSolutionContext';
 import { loadGrid } from '@/context/SudokuAction';
@@ -22,6 +22,40 @@ const PlayGrid = () => {
     const [inputGridVisible, setInputGridVisible] = useState(false);
     const [helpModalVisible, setHelpModalVisible] = useState(false);
     const [inputForm, setInputForm] = useState(null);
+
+    const isGridChanged = () => {
+        for (let i = 0; i < 81; i++) {
+            if (sudokuState.originalCells[i] === '0') {
+                if (sudokuState.cells[i] !== '') {
+                    return true;
+                } else {
+                    continue;
+                }
+            }
+            if (sudokuState.originalCells[i] !== sudokuState.cells[i]) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    const handleResetGrid = () => {
+        if (isGridChanged()) {
+            Modal.confirm({
+                title: '你确认要重置盘面吗？',
+                content: '确认后会回到初始盘面，所有步骤会丢失。',
+                okText: '确认',
+                okType: 'danger',
+                cancelText: '取消',
+                onOk() {
+                    sudokuDispatch(loadGrid(sudokuState.gridId));
+                },
+                onCancel() {},
+            });
+        } else {
+            message.info('已是初始盘面');
+        }
+    };
 
     const handleCreate = () => {
         inputForm.validateFields((err, formValues) => {
@@ -98,7 +132,7 @@ const PlayGrid = () => {
                         创建新盘
                     </Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>重置盘面</Button>
+                    <Button onClick={() => handleResetGrid()}>重置盘面</Button>
                     <p />
                     <Button onClick={() => message.warn('Under Construction')}>保存盘面</Button>
                     &nbsp;&nbsp;

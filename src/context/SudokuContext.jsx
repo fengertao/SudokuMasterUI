@@ -10,12 +10,17 @@ const SudokuContext = React.createContext();
 const DEMO_GRID =
     '000000018948007050000008020053702000009000000000901430090600000030500876060000000';
 
+const parseCellsFromGrid = gridId =>
+    Array.from(gridId).map(i => {
+        return i === '0' ? '' : i;
+    });
+
 const initialState = {
     gridId: DEMO_GRID, //initial gridId
     position: null, //position loaded from database
     resolved: false,
     originalCells: Array.from(DEMO_GRID), //the cells of original grid
-    cells: Array.from(DEMO_GRID), //the candidate of each cell.
+    cells: parseCellsFromGrid(DEMO_GRID), //the candidate of each cell.
     answer: null,
 };
 
@@ -29,7 +34,7 @@ let reducer = (state, action) => {
                 ...state,
                 resolved: action.result.resolved,
                 cells: action.result.resolved
-                    ? Array.from(action.result.answer)
+                    ? parseCellsFromGrid(action.result.answer)
                     : action.result.answer.split('|'),
                 answer: action.result.answer,
             };
@@ -41,7 +46,7 @@ let reducer = (state, action) => {
                 position: null,
                 resolved: false,
                 originalCells: Array.from(action.gridId),
-                cells: Array.from(action.gridId),
+                cells: parseCellsFromGrid(action.gridId),
                 answer: null,
             };
 
