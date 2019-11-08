@@ -3,12 +3,12 @@
  */
 
 import React, { useContext, useState } from 'react';
-import { SudokuContext } from '@/context/SudokuContext';
+import { SudokuSolutionContext } from '@/context/SudokuSolutionContext';
 import { Table, Popover, Input, Button, Icon } from 'antd';
 import Position from './Position';
 
 const StepTable = props => {
-    let { state: sudokuState } = useContext(SudokuContext);
+    let { state: sudokuState } = useContext(SudokuSolutionContext);
     let [loading] = useState(false);
     let [filteredInfo, setFilteredInfo] = useState({});
     let [, setSearchText] = useState('');
@@ -73,7 +73,6 @@ const StepTable = props => {
     };
 
     const handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters);
         setSortedInfo(sorter);
     };
@@ -146,7 +145,7 @@ const StepTable = props => {
                             record.refCells,
                             record.preChangeCandidates
                         )}
-                        title={`第${record.index}步 ${record.cell} ${record.message}`}
+                        title={`第${record.index}步 ${record.cell} ${record.message} ${record.techniques}`}
                         trigger="hover"
                     >
                         查看
@@ -162,7 +161,7 @@ const StepTable = props => {
             size="small"
             bordered={false}
             columns={columns}
-            dataSource={sudokuState.result.resolution}
+            dataSource={sudokuState.resolution}
             rowKey="index"
             pagination={false}
             scroll={{ x: 'max-content', y: 610 }}

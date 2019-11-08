@@ -7,7 +7,17 @@ import * as SudokuAction from './SudokuAction';
 
 const SudokuContext = React.createContext();
 
-const initialState = { grid: null, result: {} };
+const DEMO_GRID =
+    '000000018948007050000008020053702000009000000000901430090600000030500876060000000';
+
+const initialState = {
+    gridId: DEMO_GRID, //initial gridId
+    position: null, //position loaded from database
+    resolved: false,
+    originalCells: Array.from(DEMO_GRID), //the cells of original grid
+    cells: Array.from(DEMO_GRID), //the candidate of each cell.
+    answer: null,
+};
 
 let reducer = (state, action) => {
     switch (action.type) {
@@ -16,10 +26,42 @@ let reducer = (state, action) => {
 
         case SudokuAction.UPDATE_RESULT: {
             return {
-                ...initialState,
-                result: action.result,
+                ...state,
+                resolved: action.result.resolved,
+                cells: action.result.resolved
+                    ? Array.from(action.result.answer)
+                    : action.result.answer.split('|'),
+                answer: action.result.answer,
             };
         }
+
+        case SudokuAction.LOAD_GRID:
+            return {
+                gridId: action.gridId,
+                position: null,
+                resolved: false,
+                originalCells: Array.from(action.gridId),
+                cells: Array.from(action.gridId),
+                answer: null,
+            };
+
+        case SudokuAction.LOAD_POSITION:
+            return {
+                gridId: action.gridId,
+                position: action.position,
+                resolved: false,
+                originalCells: Array.from(action.gridId),
+                cells: action.position.split('|'),
+                answer: null,
+            };
+
+        case SudokuAction.UPDATE_CELL_CANDIDATE:
+            state.cells[action.index] = action.candidate;
+            return {
+                ...state,
+                cells: state.cells,
+            };
+
         default:
             return state;
     }

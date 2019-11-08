@@ -145,7 +145,7 @@ tr.grid {
 }
 */
 .slowlyBlink {
-    animation: slowlyBlink 3s infinite;
+    animation: slowlyBlink 2s infinite;
 }
 
 @keyframes slowlyBlink {
