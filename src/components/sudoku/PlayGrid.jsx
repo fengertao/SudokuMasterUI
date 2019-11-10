@@ -19,7 +19,7 @@ const PlayGrid = () => {
     let { state: sudokuState, dispatch: sudokuDispatch } = useContext(SudokuContext);
     let { dispatch: sudokuSolutionDispatch } = useContext(SudokuSolutionContext);
     const [loading, setLoading] = useState(false);
-    const [inputGridVisible, setInputGridVisible] = useState(false);
+    const [inputVisible, setInputVisible] = useState(false);
     const [helpModalVisible, setHelpModalVisible] = useState(false);
     const [inputForm, setInputForm] = useState(null);
 
@@ -37,6 +37,19 @@ const PlayGrid = () => {
             }
         }
         return false;
+    };
+
+    /**
+     * user has input one digital in each inputable cell.
+     */
+    const isCompleted = () => {
+        for (let i = 0; i < 81; i++) {
+            console.log(sudokuState.cells[i]);
+            if (sudokuState.cells[i].length !== 1) {
+                return false;
+            }
+        }
+        return true;
     };
 
     const handleResetGrid = () => {
@@ -66,24 +79,89 @@ const PlayGrid = () => {
             sudokuDispatch(loadGrid(newGridId));
             sudokuSolutionDispatch(initial());
             inputForm.resetFields();
-            setInputGridVisible(false);
+            setInputVisible(false);
         });
     };
 
-    const handleClickResolve = e => {
-        e.preventDefault();
-
-        async function tryResolve() {
+    const handleClickResolve = () => {
+        async function resolve() {
             setLoading(true);
-            await GridService.tryResolve(sudokuState.gridId)
+            if (!isGridChanged()) {
+                await GridService.resolveGrid(sudokuState.gridId)
+                    .then(response => {
+                        if (response.status === 200 && response.data.resolved === true) {
+                            message.success('Grid Resolved!');
+                        } else {
+                            message.warn('Grid not resolved');
+                        }
+                        sudokuDispatch(updateResult(response.data));
+                        sudokuSolutionDispatch(updateResult(response.data));
+                    })
+                    .catch(error => {
+                        message.error(error.message);
+                    });
+            } else {
+                await GridService.resolvePosition(sudokuState.gridId, sudokuState.cells)
+                    .then(response => {
+                        if (!response.data.isValid) {
+                            message.warn(response.data.msg);
+                            return;
+                        }
+                        if (response.status === 200 && response.data.resolved) {
+                            message.success('Position Resolved!');
+                        } else {
+                            //Todo more check
+                            message.warn('Position not resolved');
+                        }
+                        sudokuDispatch(updateResult(response.data));
+                        sudokuSolutionDispatch(updateResult(response.data));
+                    })
+                    .catch(error => {
+                        message.error(error.message);
+                    });
+            }
+            setLoading(false);
+        }
+
+        resolve();
+    };
+
+    const validateAnswer = () => {
+        if (!isCompleted()) {
+            message.warn(
+                '尚有单元格未完成。如果您希望检查目前输入的正确性，请点击<检查残局>按钮。'
+            );
+            return;
+        }
+        async function tryValidateAnswer() {
+            setLoading(true);
+            await GridService.ValidatePosition(sudokuState.gridId, sudokuState.cells)
                 .then(response => {
-                    if ((response.status === 200) & (response.data.resolved === true)) {
-                        message.success('Grid Resolved!');
+                    if ((response.status === 200) & (response.data.isValid === true)) {
+                        message.success('恭喜您正确完成数独！');
                     } else {
-                        message.warn('Grid not resolved');
+                        message.warn(response.data.msg, 10);
                     }
-                    sudokuDispatch(updateResult(response.data));
-                    sudokuSolutionDispatch(updateResult(response.data));
+                })
+                .catch(error => {
+                    message.error(error.message);
+                });
+
+            setLoading(false);
+        }
+        tryValidateAnswer();
+    };
+
+    const validatePosition = () => {
+        async function tryValidatePosition() {
+            setLoading(true);
+            await GridService.ValidatePosition(sudokuState.gridId, sudokuState.cells)
+                .then(response => {
+                    if ((response.status === 200) & (response.data.isValid === true)) {
+                        message.success('残局校验正确。');
+                    } else {
+                        message.warn(response.data.msg, 10);
+                    }
                 })
                 .catch(error => {
                     message.error(error.message);
@@ -92,7 +170,7 @@ const PlayGrid = () => {
             setLoading(false);
         }
 
-        tryResolve();
+        tryValidatePosition();
     };
 
     return (
@@ -124,35 +202,33 @@ const PlayGrid = () => {
                     <p />
                     <Button onClick={() => setHelpModalVisible(true)}>游戏帮助</Button>
                     &nbsp;&nbsp;
-                    <Button
-                        onClick={() => {
-                            setInputGridVisible(true);
-                        }}
-                    >
-                        创建新盘
-                    </Button>
+                    <Button onClick={() => setInputVisible(true)}>创建新盘</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => handleResetGrid()}>重置盘面</Button>
                     <p />
+                    <Button onClick={() => validateAnswer()}>检查结果</Button>
+                    &nbsp;&nbsp;
                     <Button onClick={() => message.warn('Under Construction')}>保存盘面</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => message.warn('Under Construction')}>提取盘面</Button>
+                    <p />
+                    <Button onClick={() => validatePosition()}>检查残局</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => message.warn('Under Construction')}>保存残局</Button>
-                    <p />
-                    <Button onClick={() => message.warn('Under Construction')}>提取残局</Button>
                     &nbsp;&nbsp;
+                    <Button onClick={() => message.warn('Under Construction')}>提取残局</Button>
+                    <p />
                     <Button onClick={() => message.warn('Under Construction')}>点评盘面</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => message.warn('Under Construction')}>单步执行</Button>
-                    <p />
+                    &nbsp;&nbsp;
                     <Button type="primary" onClick={e => handleClickResolve(e)}>
                         解盘&nbsp;&nbsp;> >
                     </Button>
                     <CreateGridForm
                         ref={setInputForm}
-                        visible={inputGridVisible}
-                        onCancel={() => setInputGridVisible(false)}
+                        visible={inputVisible}
+                        onCancel={() => setInputVisible(false)}
                         onCreate={handleCreate}
                     />
                     <HelpModal
