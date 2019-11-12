@@ -19,6 +19,14 @@ class GridService {
         let position = cells.reduce((a, b) => a.concat('|').concat(b));
         return axios.get(`${GRID_URL}/${gridId}/validate/${position}`);
     };
+
+    saveGrid = gridId => {
+        return axios.put(`${GRID_URL}/${gridId}`);
+    };
+
+    findAllGrid = () => {
+        return axios.get(`${GRID_URL + 's'}`);
+    }
 }
 
 export default new GridService();

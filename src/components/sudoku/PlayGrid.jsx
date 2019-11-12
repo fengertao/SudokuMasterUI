@@ -10,6 +10,7 @@ import { loadGrid } from '@/context/SudokuAction';
 import { initial, updateResult } from '@/context/SudokuSolutionAction';
 import GridService from '@/axios/GridService';
 import CreateGridForm from './CreateGridForm';
+import GridTable from './GridTable';
 import HelpModal from './HelpModal';
 import Cell from './Cell';
 import './gridStyles.css';
@@ -20,8 +21,9 @@ const PlayGrid = () => {
     let { dispatch: sudokuSolutionDispatch } = useContext(SudokuSolutionContext);
     const [loading, setLoading] = useState(false);
     const [inputVisible, setInputVisible] = useState(false);
-    const [helpModalVisible, setHelpModalVisible] = useState(false);
     const [inputForm, setInputForm] = useState(null);
+    const [helpModalVisible, setHelpModalVisible] = useState(false);
+    const [gridTableVisible, setGridTableVisible] = useState(false);
 
     const isGridChanged = () => {
         for (let i = 0; i < 81; i++) {
@@ -83,6 +85,12 @@ const PlayGrid = () => {
         });
     };
 
+    const handleLoadGrid = gridId => {
+        sudokuDispatch(loadGrid(gridId));
+        sudokuSolutionDispatch(initial());
+        setGridTableVisible(false);
+    };
+
     const handleClickResolve = () => {
         async function resolve() {
             setLoading(true);
@@ -124,6 +132,26 @@ const PlayGrid = () => {
         }
 
         resolve();
+    };
+
+    const saveGrid = () => {
+        async function trySaveGrid() {
+            setLoading(true);
+            await GridService.saveGrid(sudokuState.gridId)
+                .then(response => {
+                    if (response.status === 200) {
+                        message.success('保存成功。');
+                    } else {
+                        message.warn(response.data.msg);
+                    }
+                })
+                .catch(error => {
+                    message.error(error.message);
+                });
+
+            setLoading(false);
+        }
+        trySaveGrid();
     };
 
     const validateAnswer = () => {
@@ -208,9 +236,9 @@ const PlayGrid = () => {
                     <p />
                     <Button onClick={() => validateAnswer()}>检查结果</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>保存盘面</Button>
+                    <Button onClick={() => saveGrid()}>保存盘面</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>提取盘面</Button>
+                    <Button onClick={() => setGridTableVisible(true)}>提取盘面</Button>
                     <p />
                     <Button onClick={() => validatePosition()}>检查残局</Button>
                     &nbsp;&nbsp;
@@ -230,6 +258,11 @@ const PlayGrid = () => {
                         visible={inputVisible}
                         onCancel={() => setInputVisible(false)}
                         onCreate={handleCreate}
+                    />
+                    <GridTable
+                        visible={gridTableVisible}
+                        onCancel={() => setGridTableVisible(false)}
+                        onLoadGrid={handleLoadGrid}
                     />
                     <HelpModal
                         visible={helpModalVisible}
