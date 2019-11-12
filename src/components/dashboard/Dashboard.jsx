@@ -177,7 +177,11 @@ class Dashboard extends React.Component {
                                             <span className="block">Charlie</span>
                                             <span className="text-muted">
                                                 对本网站评论请点击
-                                                <a href="https://github.com/fengertao/SudokuMasterServ/issues">
+                                                <a
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    href="https://github.com/fengertao/SudokuMasterServ/issues"
+                                                >
                                                     https://github.com/fengertao/SudokuMasterServ/issues
                                                 </a>
                                             </span>

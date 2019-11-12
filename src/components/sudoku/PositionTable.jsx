@@ -3,14 +3,15 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Table, Input, Button, Icon, message, Modal } from 'antd';
+import { Table, Input, Button, Icon, message, Modal, Popover } from 'antd';
+import Position from './Position';
 import GridService from '@/axios/GridService';
 
-const GridTable = props => {
-    const { visible, onCancel, onLoadGrid } = props;
+const PositionTable = props => {
+    const { visible, onCancel, onLoadPosition } = props;
     let [loading, setLoading] = useState(false);
     let [data, setData] = useState([]);
-    let [filteredInfo, setFilteredInfo] = useState({});
+    let [, setFilteredInfo] = useState({});
     let [, setSearchText] = useState('');
     let [, setSortedInfo] = useState({});
     let searchInput;
@@ -18,10 +19,10 @@ const GridTable = props => {
     useEffect(() => {
         if (!visible) return;
         setLoading(true);
-        GridService.findAllGrid()
+        GridService.findAllPosition()
             .then(resp => {
                 setLoading(false);
-                setData(resp.data.grids);
+                setData(resp.data.positions);
             })
             .catch(err => {
                 setLoading(false);
@@ -94,28 +95,14 @@ const GridTable = props => {
         setSortedInfo(sorter);
     };
 
-    const handleSelectGrid = gridId => {
-        onLoadGrid(gridId);
+    const positionContent = code => {
+        return <Position position={code} cell={null} refCells={[]} preChangeCandidates={null} />;
     };
 
     const columns = [
         {
             title: '盘面',
-            dataIndex: 'id',
-        },
-        {
-            title: '难度',
-            dataIndex: 'difficulty',
-            filters: [
-                { text: '-1', value: -1 },
-                { text: '1', value: 1 },
-                { text: '2', value: 2 },
-                { text: '3', value: 3 },
-                { text: '4', value: 4 },
-                { text: '5', value: 5 },
-            ],
-            filteredValue: filteredInfo.difficulty || null,
-            onFilter: (value, record) => record.difficulty === value,
+            dataIndex: 'grid',
         },
         {
             title: '创建人',
@@ -128,22 +115,36 @@ const GridTable = props => {
             ...getColumnSearchProps('createdAt'),
         },
         {
-            title: '可AI解盘',
-            dataIndex: 'resolvedByAi',
-            render: (resolvedByAi, record) => (
-                <Icon type={resolvedByAi ? 'check-circle' : 'close-circle'} theme="twoTone" />
-            ),
-        },
-        {
             title: '注解',
             dataIndex: 'comment',
             ...getColumnSearchProps('comment'),
         },
         {
-            title: 'Action',
+            title: '复盘',
+            dataIndex: 'code',
+            width: 50,
+            render: (code, record) => (
+                <span>
+                    <Popover
+                        placement="left"
+                        content={positionContent(code)}
+                        // title={``}
+                        trigger="hover"
+                    >
+                        查看
+                    </Popover>
+                </span>
+            ),
+        },
+        {
+            title: '动作',
             key: 'action',
             render: (text, record) => (
-                <Button key={record.id} type="link" onClick={() => handleSelectGrid(record.id)}>
+                <Button
+                    key={record.id}
+                    type="link"
+                    onClick={() => onLoadPosition(record.grid, record.code)}
+                >
                     提取
                 </Button>
             ),
@@ -156,7 +157,7 @@ const GridTable = props => {
             title="提取盘面"
             onCancel={onCancel}
             footer={[]}
-            width={1400}
+            width={1200}
             height={800}
         >
             <Table
@@ -176,4 +177,4 @@ const GridTable = props => {
         </Modal>
     );
 };
-export default GridTable;
+export default PositionTable;

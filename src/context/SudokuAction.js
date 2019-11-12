@@ -30,7 +30,7 @@ const loadGrid = gridId => ({
 });
 
 const loadPosition = (gridId, position) => ({
-    type: LOAD_GRID,
+    type: LOAD_POSITION,
     gridId,
     position,
 });

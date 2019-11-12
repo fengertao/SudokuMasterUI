@@ -5,12 +5,14 @@
 import React, { useContext, useState } from 'react';
 import { Button, message, Spin, Modal } from 'antd';
 import { SudokuContext } from '@/context/SudokuContext';
+import { AuthContext } from '@/context/AuthContext';
 import { SudokuSolutionContext } from '@/context/SudokuSolutionContext';
-import { loadGrid } from '@/context/SudokuAction';
+import { loadGrid, loadPosition } from '@/context/SudokuAction';
 import { initial, updateResult } from '@/context/SudokuSolutionAction';
 import GridService from '@/axios/GridService';
 import CreateGridForm from './CreateGridForm';
 import GridTable from './GridTable';
+import PositionTable from './PositionTable';
 import HelpModal from './HelpModal';
 import Cell from './Cell';
 import './gridStyles.css';
@@ -18,12 +20,24 @@ import bg from './bg.png';
 
 const PlayGrid = () => {
     let { state: sudokuState, dispatch: sudokuDispatch } = useContext(SudokuContext);
+    let { state: authState } = useContext(AuthContext);
     let { dispatch: sudokuSolutionDispatch } = useContext(SudokuSolutionContext);
     const [loading, setLoading] = useState(false);
     const [inputVisible, setInputVisible] = useState(false);
     const [inputForm, setInputForm] = useState(null);
     const [helpModalVisible, setHelpModalVisible] = useState(false);
     const [gridTableVisible, setGridTableVisible] = useState(false);
+    const [positionTableVisible, setPositionTableVisible] = useState(false);
+
+    const validateAccess = () => {
+        if (authState.username === 'guest') {
+            message.warn(
+                '游客可以手动或玩数独游戏，或者AI指导解盘。并且可以进行<提取盘面><重置盘面><检查结果>等操作。其它操作请注册用户并登录。'
+            );
+            return false;
+        }
+        return true;
+    };
 
     const isGridChanged = () => {
         for (let i = 0; i < 81; i++) {
@@ -91,6 +105,13 @@ const PlayGrid = () => {
         setGridTableVisible(false);
     };
 
+    const handleLoadPosition = (gridId, position) => {
+        //Todo
+        sudokuDispatch(loadPosition(gridId, position));
+        sudokuSolutionDispatch(initial());
+        setPositionTableVisible(false);
+    };
+
     const handleClickResolve = () => {
         async function resolve() {
             setLoading(true);
@@ -152,6 +173,27 @@ const PlayGrid = () => {
             setLoading(false);
         }
         trySaveGrid();
+    };
+
+    const savePosition = () => {
+        async function trySavePosition() {
+            setLoading(true);
+            //Todo
+            await GridService.savePosition(sudokuState.gridId, sudokuState.cells)
+                .then(response => {
+                    if (response.status === 200) {
+                        message.success('保存成功。');
+                    } else {
+                        message.warn(response.data.msg);
+                    }
+                })
+                .catch(error => {
+                    message.error(error.message);
+                });
+
+            setLoading(false);
+        }
+        trySavePosition();
     };
 
     const validateAnswer = () => {
@@ -230,21 +272,25 @@ const PlayGrid = () => {
                     <p />
                     <Button onClick={() => setHelpModalVisible(true)}>游戏帮助</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => setInputVisible(true)}>创建新盘</Button>
+                    <Button onClick={() => validateAccess() && setInputVisible(true)}>
+                        创建新盘
+                    </Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => handleResetGrid()}>重置盘面</Button>
                     <p />
                     <Button onClick={() => validateAnswer()}>检查结果</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => saveGrid()}>保存盘面</Button>
+                    <Button onClick={() => validateAccess() && saveGrid()}>保存盘面</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => setGridTableVisible(true)}>提取盘面</Button>
                     <p />
-                    <Button onClick={() => validatePosition()}>检查残局</Button>
+                    <Button onClick={() => validateAccess() && validatePosition()}>检查残局</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>保存残局</Button>
+                    <Button onClick={() => validateAccess() && savePosition()}>保存残局</Button>
                     &nbsp;&nbsp;
-                    <Button onClick={() => message.warn('Under Construction')}>提取残局</Button>
+                    <Button onClick={() => validateAccess() && setPositionTableVisible(true)}>
+                        提取残局
+                    </Button>
                     <p />
                     <Button onClick={() => message.warn('Under Construction')}>点评盘面</Button>
                     &nbsp;&nbsp;
@@ -263,6 +309,11 @@ const PlayGrid = () => {
                         visible={gridTableVisible}
                         onCancel={() => setGridTableVisible(false)}
                         onLoadGrid={handleLoadGrid}
+                    />
+                    <PositionTable
+                        visible={positionTableVisible}
+                        onCancel={() => setPositionTableVisible(false)}
+                        onLoadPosition={handleLoadPosition}
                     />
                     <HelpModal
                         visible={helpModalVisible}

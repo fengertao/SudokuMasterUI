@@ -3,21 +3,13 @@
  */
 
 import axios from 'axios';
-import { GRID_URL } from './config';
+import { GRID_URL, POSITION_URL } from './config';
 
 class GridService {
+    getPosition = cells => cells.reduce((a, b) => a.concat('|').concat(b));
+
     resolveGrid = gridId => {
         return axios.get(`${GRID_URL}/${gridId}/resolve`);
-    };
-
-    resolvePosition = (gridId, cells) => {
-        let position = cells.reduce((a, b) => a.concat('|').concat(b));
-        return axios.get(`${GRID_URL}/${gridId}/resolve/${position}`);
-    };
-
-    ValidatePosition = (gridId, cells) => {
-        let position = cells.reduce((a, b) => a.concat('|').concat(b));
-        return axios.get(`${GRID_URL}/${gridId}/validate/${position}`);
     };
 
     saveGrid = gridId => {
@@ -26,7 +18,23 @@ class GridService {
 
     findAllGrid = () => {
         return axios.get(`${GRID_URL + 's'}`);
-    }
+    };
+
+    resolvePosition = (gridId, cells) => {
+        return axios.get(`${POSITION_URL}/${gridId}/${this.getPosition(cells)}/resolve`);
+    };
+
+    ValidatePosition = (gridId, cells) => {
+        return axios.get(`${POSITION_URL}/${gridId}/${this.getPosition(cells)}/validate`);
+    };
+
+    savePosition = (gridId, cells) => {
+        return axios.put(`${POSITION_URL}/${gridId}/${this.getPosition(cells)}`);
+    };
+
+    findAllPosition = () => {
+        return axios.get(`${POSITION_URL + 's'}`);
+    };
 }
 
 export default new GridService();
