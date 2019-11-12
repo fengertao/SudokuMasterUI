@@ -2,6 +2,22 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import echarts from 'echarts';
 
+const today = new Date();
+var todayMinus1 = new Date(today);
+todayMinus1.setDate(today.getDate() - 1);
+var todayMinus2 = new Date(today);
+todayMinus2.setDate(today.getDate() - 2);
+var todayMinus3 = new Date(today);
+todayMinus3.setDate(today.getDate() - 3);
+var todayMinus4 = new Date(today);
+todayMinus4.setDate(today.getDate() - 4);
+var todayMinus5 = new Date(today);
+todayMinus5.setDate(today.getDate() - 5);
+var todayMinus6 = new Date(today);
+todayMinus6.setDate(today.getDate() - 6);
+var todayMinus7 = new Date(today);
+todayMinus7.setDate(today.getDate() - 7);
+
 const option = {
     title: {
         text: '最近7天用户访问量',
@@ -30,13 +46,13 @@ const option = {
     xAxis: {
         type: 'category',
         data: [
-            '2017-05-01',
-            '2017-05-02',
-            '2017-05-03',
-            '2017-05-04',
-            '2017-05-05',
-            '2017-05-06',
-            '2017-05-07',
+            todayMinus7.toLocaleDateString(),
+            todayMinus6.toLocaleDateString(),
+            todayMinus5.toLocaleDateString(),
+            todayMinus4.toLocaleDateString(),
+            todayMinus3.toLocaleDateString(),
+            todayMinus2.toLocaleDateString(),
+            todayMinus1.toLocaleDateString(),
         ],
         boundaryGap: false,
         splitLine: {
@@ -85,7 +101,7 @@ const option = {
     },
     series: [
         {
-            name: '昨日',
+            name: '访问量',
             type: 'line',
             smooth: true,
             showSymbol: false,

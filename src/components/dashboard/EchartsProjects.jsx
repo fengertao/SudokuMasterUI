@@ -86,7 +86,7 @@ const option = {
             },
         },
         {
-            name: '完成项目数',
+            name: '解盘数量',
             type: 'bar',
             data: data,
             xAxisIndex: 1,

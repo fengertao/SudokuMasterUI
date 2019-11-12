@@ -52,15 +52,51 @@ const Login = props => {
         });
     };
 
+    const handleGuestLogin = e => {
+        e.preventDefault();
+        props.form.validateFields((err, values) => {
+            if (!err) {
+                async function tryLogin() {
+                    setLoading(true);
+                    await login({
+                        username: 'guest',
+                        password: 'guest',
+                    })
+                        .then(response => {
+                            dispatch({ type: LOGIN_SUCCESSFUL, data: response.data });
+                            props.history.push('/');
+                        })
+                        .catch(error => {
+                            let msg = error.response ? error.response.data : error.message;
+                            switch (msg) {
+                                case 'USER_DISABLED':
+                                    msg = '需要等待管理员激活账户';
+                                    break;
+                                case 'INVALID_CREDENTIALS':
+                                    msg = '账号密码错误';
+                                    break;
+                                default:
+                                    break;
+                            }
+                            message.error('登录失败: ' + msg);
+                            setLoading(false);
+                        });
+                }
+
+                tryLogin();
+            }
+        });
+    };
+
     const handleSignup = e => {
         e.preventDefault();
         props.history.push('/signup');
     };
 
-    const gitHub = () => {
-        window.location.href =
-            'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
-    };
+    // const gitHub = () => {
+    //     window.location.href =
+    //         'https://github.com/login/oauth/authorize?client_id=792cdcd244e98dcd2dee&redirect_uri=http://localhost:3006/&scope=user&state=reactAdmin';
+    // };
 
     return (
         <div className="login">
@@ -109,13 +145,16 @@ const Login = props => {
                                 登录
                             </Button>
                             <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span onClick={handleSignup}>
-                                    <Button type="dashed">或 现在就去注册!</Button>
+                                <span onClick={handleGuestLogin}>
+                                    <Button type="dashed">游客模式</Button>
                                 </span>
-                                <span>
+                                <span onClick={handleSignup}>
+                                    <Button type="dashed">现在就去注册!</Button>
+                                </span>
+                                {/* <span>
                                     <Icon type="github" onClick={gitHub} />
                                     (第三方登录)
-                                </span>
+                                </span> */}
                             </p>
                         </FormItem>
                     </Form>

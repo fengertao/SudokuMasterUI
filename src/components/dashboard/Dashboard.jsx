@@ -89,27 +89,24 @@ class Dashboard extends React.Component {
                                     <Icon type="sync" />
                                 </span>
                                 <Timeline>
-                                    <Timeline.Item color="green">用户及登录管理</Timeline.Item>
                                     <Timeline.Item color="green">
-                                        <p>数独大师已完成任务：</p>
-                                        <p>用户可以录入新盘并由计算机智能解盘</p>
-                                        <p>可以查看解题步骤</p>
-                                        <p>可以在解题步骤的复盘链接处查看每一步的盘面</p>
-                                        <p>用户手动解盘</p>
-                                        <p>用户在单元格记笔记</p>
+                                        <p>已完成开发任务：</p>
+                                        <p>增删查改数独盘面</p>
+                                        <p>人工解盘</p>
+                                        <p>增删查改人工解盘中残局</p>
+                                        <p>计算机智能解盘</p>
+                                        <p>计算机智能解残局</p>
+                                        <p>数独单元格内候选数笔记</p>
+                                        <p>复盘，查看人工智能的解题步骤</p>
                                     </Timeline.Item>
                                     <Timeline.Item color="red">
-                                        <p>数独大师待完成任务：</p>
-                                        <p>保存和提取盘面</p>
-                                        <p>残局存盘和提取</p>
+                                        <p>待完成开发任务：</p>
                                         <p>计时器</p>
-                                        <p>游戏历史记录</p>
                                         <p>单步游戏</p>
                                     </Timeline.Item>
                                     <Timeline.Item color="#108ee9">
                                         <p>系统待完成任务：</p>
                                         <p>数据库备份和恢复</p>
-                                        <p>页面排版</p>
                                     </Timeline.Item>
                                 </Timeline>
                             </Card>
@@ -149,7 +146,7 @@ class Dashboard extends React.Component {
                                         <div className="clear">
                                             <span className="block">Charlie</span>
                                             <span className="text-muted">
-                                                本网站为技术方案测试和演示系统，请勿录入私人信息
+                                                本网站为技术方案测试和演示系统，请勿录入私人信息。
                                             </span>
                                         </div>
                                     </li>
@@ -164,7 +161,7 @@ class Dashboard extends React.Component {
                                         <div className="clear">
                                             <span className="block">Charlie</span>
                                             <span className="text-muted">
-                                                首页是静态页面，数独和用户页面已经可以使用
+                                                首页是静态页面，数独和用户页面已经可以使用。
                                             </span>
                                         </div>
                                     </li>
@@ -179,7 +176,10 @@ class Dashboard extends React.Component {
                                         <div className="clear">
                                             <span className="block">Charlie</span>
                                             <span className="text-muted">
-                                                对本网站的评论请在https://github.com/fengertao/SudokuMasterServ开issue
+                                                对本网站评论请点击
+                                                <a href="https://github.com/fengertao/SudokuMasterServ/issues">
+                                                    https://github.com/fengertao/SudokuMasterServ/issues
+                                                </a>
                                             </span>
                                         </div>
                                     </li>
