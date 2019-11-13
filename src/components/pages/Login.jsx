@@ -54,38 +54,35 @@ const Login = props => {
 
     const handleGuestLogin = e => {
         e.preventDefault();
-        props.form.validateFields((err, values) => {
-            if (!err) {
-                async function tryLogin() {
-                    setLoading(true);
-                    await login({
-                        username: 'guest',
-                        password: 'guest',
-                    })
-                        .then(response => {
-                            dispatch({ type: LOGIN_SUCCESSFUL, data: response.data });
-                            props.history.push('/');
-                        })
-                        .catch(error => {
-                            let msg = error.response ? error.response.data : error.message;
-                            switch (msg) {
-                                case 'USER_DISABLED':
-                                    msg = '需要等待管理员激活账户';
-                                    break;
-                                case 'INVALID_CREDENTIALS':
-                                    msg = '账号密码错误';
-                                    break;
-                                default:
-                                    break;
-                            }
-                            message.error('登录失败: ' + msg);
-                            setLoading(false);
-                        });
-                }
 
-                tryLogin();
-            }
-        });
+        async function tryLogin() {
+            setLoading(true);
+            await login({
+                username: 'guest',
+                password: 'guest',
+            })
+                .then(response => {
+                    dispatch({ type: LOGIN_SUCCESSFUL, data: response.data });
+                    props.history.push('/');
+                })
+                .catch(error => {
+                    let msg = error.response ? error.response.data : error.message;
+                    switch (msg) {
+                        case 'USER_DISABLED':
+                            msg = '需要等待管理员激活账户';
+                            break;
+                        case 'INVALID_CREDENTIALS':
+                            msg = '账号密码错误';
+                            break;
+                        default:
+                            break;
+                    }
+                    message.error('登录失败: ' + msg);
+                    setLoading(false);
+                });
+        }
+
+        tryLogin();
     };
 
     const handleSignup = e => {
@@ -113,7 +110,7 @@ const Login = props => {
                             })(
                                 <Input
                                     prefix={<Icon type="user" style={{ fontSize: 13 }} />}
-                                    placeholder="demo"
+                                    placeholder="guest"
                                 />
                             )}
                         </FormItem>
@@ -124,7 +121,7 @@ const Login = props => {
                                 <Input
                                     prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
                                     type="password"
-                                    placeholder="demo"
+                                    placeholder="guest"
                                 />
                             )}
                         </FormItem>
