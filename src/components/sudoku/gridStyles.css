@@ -125,25 +125,6 @@ tr.grid {
     font-family: lucida handwriting, comic sans ms, cursive;
 }
 
-/*
-.readInput {
-    border-right: 0;
-    border-left: 0;
-    border-top: 0;
-    border-bottom: 0;
-    margin: 0;
-    width: 40px;
-    line-height: 40px;
-    height: 40px;
-}
-
-.Todo {
-    margin: 0;
-    font-family: lucida handwriting, comic sans ms, cursive;
-    background: alph;
-    background-color: transparent;
-}
-*/
 .slowlyBlink {
     animation: slowlyBlink 2s infinite;
 }

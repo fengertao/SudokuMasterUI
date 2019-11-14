@@ -106,7 +106,6 @@ const PlayGrid = () => {
     };
 
     const handleLoadPosition = (gridId, position) => {
-        //Todo
         sudokuDispatch(loadPosition(gridId, position));
         sudokuSolutionDispatch(initial());
         setPositionTableVisible(false);
@@ -178,7 +177,6 @@ const PlayGrid = () => {
     const savePosition = () => {
         async function trySavePosition() {
             setLoading(true);
-            //Todo
             await GridService.savePosition(sudokuState.gridId, sudokuState.cells)
                 .then(response => {
                     if (response.status === 200) {

@@ -21,8 +21,7 @@ export default class MarkedCell extends Component {
             tdClassName = `cell word${value}`;
             showValue = value;
         } else if (value === '123456789') {
-            //Todo
-            tdClassName = 'cell word1';
+            tdClassName = 'cell word0';
             showValue = '\xA0';
         } else {
             tdClassName = 'cell candidates';

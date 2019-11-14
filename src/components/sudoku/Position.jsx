@@ -8,8 +8,6 @@ import './gridStyles.css';
 import bg from './bg.png';
 
 const Position = props => {
-    //Todo
-    //const refCell = null;
     const cells = props.position.split('|');
     const refCells = props.refCells;
     const keyCell = props.cell;
