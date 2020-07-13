@@ -88,7 +88,7 @@
         "cz-conventional-changelog": "^3.0.2",
         "less": "2.x",
         "less-loader": "^5.0.0",
-        "standard-version": "^7.0.0"
+        "standard-version": "^8.0.1"
     },
     "scripts": {
         "start": "node scripts/start.js",
