@@ -117,16 +117,27 @@ const PlayGrid = () => {
             if (!isGridChanged()) {
                 await GridService.resolveGrid(sudokuState.gridId)
                     .then(response => {
-                        if (response.status === 200 && response.data.resolved === true) {
-                            message.success('Grid Resolved!');
+                        if (response.status === 200) {
+                            if (response.data.resolved === true){
+                                message.success('Grid Resolved!');
+                            } else {
+                                message.warn('Grid not resolved');
+                            }
                         } else {
-                            message.warn('Grid not resolved');
+                            message.error(response.data.msg);
                         }
                         sudokuDispatch(updateResult(response.data));
                         sudokuSolutionDispatch(updateResult(response.data));
                     })
                     .catch(error => {
-                        message.error(error.message);
+                        if (error.response.status === 400) {
+                            message.error(error.response.data.msg);
+                            error.response.data.resolved = true;
+                            sudokuDispatch(updateResult(error.response.data));
+                            sudokuSolutionDispatch(updateResult(error.response.data));
+                        } else {
+                            message.error(error.message);
+                        }
                     });
             } else {
                 await GridService.resolvePosition(sudokuState.gridId, sudokuState.cells)
@@ -135,17 +146,27 @@ const PlayGrid = () => {
                             message.warn(response.data.msg);
                             return;
                         }
-                        if (response.status === 200 && response.data.resolved) {
-                            message.success('Position Resolved!');
+                        if (response.status === 200) {
+                            if (response.data.resolved === true){
+                                message.success('Position Resolved!');
+                            } else {
+                                message.warn('Position not resolved');
+                            }
                         } else {
-                            //Todo more check
-                            message.warn('Position not resolved');
+                            message.error(response.data.msg);
                         }
                         sudokuDispatch(updateResult(response.data));
                         sudokuSolutionDispatch(updateResult(response.data));
                     })
                     .catch(error => {
-                        message.error(error.message);
+                        if (error.response.status === 400) {
+                            message.error(error.response.data.msg);
+                            error.response.data.resolved = true;
+                            sudokuDispatch(updateResult(error.response.data));
+                            sudokuSolutionDispatch(updateResult(error.response.data));
+                        } else {
+                            message.error(error.message);
+                        }
                     });
             }
             setLoading(false);
