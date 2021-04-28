@@ -27,7 +27,7 @@ const CreateGridForm = Form.create()(props => {
     return (
         <Modal
             visible={visible}
-            title="创建新盘"
+            title="自定义盘"
             okText="创建"
             cancelText="取消"
             onCancel={onCancel}

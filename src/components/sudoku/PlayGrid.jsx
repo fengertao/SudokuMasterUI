@@ -263,7 +263,7 @@ const PlayGrid = () => {
     };
 
     return (
-        <Spin spinning={loading} size="large" tip="思考中...">
+        <Spin spinning={loading} size="large" tip="加载中...">
             <div style={{ textAlign: 'center', margin: '0px auto', height: 444 }}>
                 <img src={bg} className="gridBg" alt="bg" />
 
@@ -292,7 +292,7 @@ const PlayGrid = () => {
                     <Button onClick={() => setHelpModalVisible(true)}>游戏帮助</Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => validateAccess() && setInputVisible(true)}>
-                        创建新盘
+                        自定义盘
                     </Button>
                     &nbsp;&nbsp;
                     <Button onClick={() => handleResetGrid()}>重置盘面</Button>
