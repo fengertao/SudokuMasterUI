@@ -1,6 +1,6 @@
 {
     "name": "sudoku-master",
-    "version": "0.7.0",
+    "version": "0.7.3",
     "private": true,
     "homepage": "/",
     "dependencies": {
