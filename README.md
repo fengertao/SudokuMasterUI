@@ -1,3 +1,3 @@
 # Sudoku Master UI
 
-Refer to https://github.com/fengertao/SudokuMasterServ/blob/master/README.md
+This project has merged into https://github.com/fengertao/SudokuMasterServ/, freeze to update.
